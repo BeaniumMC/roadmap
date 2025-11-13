@@ -1,0 +1,20 @@
+name: Auto-close Pull Requests
+
+on:
+  pull_request:
+    types: [opened, reopened]  # triggers when a PR is opened or reopened
+
+jobs:
+  auto-close:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write  # needed to close PRs
+
+    steps:
+      - name: Close the PR
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          echo "Closing PR #$PR_NUMBER"
+          gh pr close "$PR_NUMBER" --comment "This pull request was automatically closed by a GitHub Action."

@@ -25,6 +25,6 @@ jobs:
       - name: Close issues from non-maintainers
         if: steps.check.outputs.is_maintainer == 'false'
         run: |
-          gh issue close "$GITHUB_EVENT_ISSUE_NUMBER" -R "$GITHUB_REPOSITORY" -c "Only roadmap maintainers can create issues."
+          gh issue close "${{ github.event.issue.number }}" -R "$GITHUB_REPOSITORY" -c "Only roadmap maintainers can create issues."
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

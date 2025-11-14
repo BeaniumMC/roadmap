@@ -22,7 +22,7 @@ jobs:
       - name: Check if creator is a maintainer
         id: check
         run: |
-          if gh api orgs/BeaniumMC/teams/administrators/memberships/${{ github.actor }} --silent; then
+          if gh api orgs/BeaniumMC/teams/administrators/memberships/${{ github.event.sender.login }} --silent; then
             echo "is_maintainer=true" >> $GITHUB_OUTPUT
           else
             echo "is_maintainer=false" >> $GITHUB_OUTPUT

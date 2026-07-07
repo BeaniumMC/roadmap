@@ -1,0 +1,19 @@
+name: Restrict issue creators and lock issue
+
+on:
+  issues:
+    types: [opened, reopened]
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  lock:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lock issue
+        run: |
+          gh issue lock "${{ github.event.issue.number }}" -R "$GITHUB_REPOSITORY"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
